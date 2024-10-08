@@ -1,11 +1,16 @@
 import { useState } from "react";
 
-export default function ReadingStatusSelector() {
-    const [readingStatus, setReadingStatus] = useState("None");
+export default function ReadingStatusSelector({onUpdate, shelf, book}) {
+    const [readingStatus, setReadingStatus] = useState(shelf || "none");
+
+    const handleChange = (value) => {
+        setReadingStatus(value);
+        onUpdate(book, value);
+    }
 
     return (
         <div className="book-shelf-changer">
-            <select value={readingStatus} onChange={(e) => setReadingStatus(e.target.value)}>
+            <select value={readingStatus} onChange={(e) => handleChange(e.target.value)}>
                 <option value="none" disabled>
                     Move to...
                 </option>
